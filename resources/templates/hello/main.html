@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Magnus sin side</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Hello Playground!!!</h1>
+     <h2><span>Thymeleaf Template Name: </span><span th:text="${name}"></span></h2> 
+</div>
+</body>
+</html>

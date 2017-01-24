@@ -1,0 +1,74 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'quiz'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+    compile 'com.rometools:rome:1.7.0'
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    compile 'org.slf4j:slf4j-api:1.7.15'
+
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-devtools")
+	compile("org.springframework.boot:spring-boot-starter-mail")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src']
+        }
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+
+    test {
+        groovy {
+            srcDirs = ['src']
+        }
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
+bootRun {
+    addResources = true
+}
+springBoot {
+  mainClass= "oj.App"
+}
+
