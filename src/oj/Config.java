@@ -7,4 +7,6 @@ import org.springframework.stereotype.Component;
 public class Config {
     @Value("${oj.foo}")
     public String foo = "default";
+    @Value("${quiz.server}")
+    public String quizServer = "default";
 }

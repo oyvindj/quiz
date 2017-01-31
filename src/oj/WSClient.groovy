@@ -1,6 +1,7 @@
 package oj
 
 import groovy.util.logging.Slf4j
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
@@ -9,6 +10,12 @@ import org.springframework.web.client.RestTemplate
 @Component
 @Slf4j
 class WSClient {
+    Config config
+    @Autowired
+    WSClient(Config config) {
+        this.config = config
+    }
+
     String challenge(String nick) {
         def restTemplate = new RestTemplate()
         def url = "http://localhost:8080/client/challenge?nick=" + nick
@@ -30,7 +37,7 @@ class WSClient {
     }
     Boolean login(String nick) {
         def restTemplate = new RestTemplate()
-        def url = "htto://localhost:8080/login?nick=" + nick
+        def url = "htto://" + config.quizServer + ":8080/login?nick=" + nick
         restTemplate.getForObject(url, String.class)
         return true
     }

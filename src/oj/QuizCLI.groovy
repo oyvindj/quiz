@@ -11,6 +11,9 @@ class QuizCLI {
     @Autowired
     QuestionDB questionDB
 
+    @Autowired
+    WSClient wsClient
+
     void start(Scanner scanner) {
         // TODO save to user properties instead
         def file = new File(".quizrc")
@@ -34,6 +37,8 @@ class QuizCLI {
 
     void runCommand(String cmd, String arg, Scanner scanner) {
         switch(cmd) {
+            case "login":
+                wsClient.login(arg)
             case "test":
                 def qs = questionDB.findAll()
                 def index = getRandom(qs.size())
