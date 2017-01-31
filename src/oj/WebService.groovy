@@ -19,15 +19,52 @@ class WebService {
     @Autowired
     Config config
 
+    List<Login> logins
+    List<Quiz> quizes
+
+    @RequestMapping(method = RequestMethod.GET, value = "login")
+    String login(@RequestParam("nick") String nick) {
+        def login = new Login()
+        login.nick = nick
+        login.time = new Date()
+        logins.add(login)
+        return "success"
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "logins")
+    List<Login> logins() {
+        return logins
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "challenge")
+    Boolean challenge(
+        @RequestParam("nick") nick,
+        @RequestParam("challengedNick") challengedNick) {
+        def answer = wsClient.challenge(nick)
+        if(answer) {
+            println nick + "'s challenge was accepted by " + challengedNick
+            def quiz = new Quiz()
+            quiz.nick1 = nick
+            quiz.nick2 = challengedNick
+            quiz.time = new Date()
+            quizes.add(quiz)
+        } else {
+            println nick + "'s challenge was not accepted by " + challengedNick
+
+        }
+        return answer
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, value = "create")
-    def String createPerson(@RequestParam("name") String name) {
+    String createPerson(@RequestParam("name") String name) {
         def person = new Person(name)
         person = db.save(person)
         return "created person with name " + person.name + " and id: " + person.id
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "hello")
-    def String hello () {
+    String hello () {
         return config.foo
     }
     @RequestMapping(method = RequestMethod.GET, value = "sendmail")
