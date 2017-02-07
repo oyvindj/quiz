@@ -30,7 +30,8 @@ class GreetingController {
         login.nick = message.name
         login.time = new Date()
         ss.logins.add(login)
-        messagingTemplate.convertAndSend("/topic/logins", ws.logins())
+        messagingTemplate.convertAndSend("/topic/logins", ss.logins)
+        //messagingTemplate.convertAndSend("/topic/logins", ws.logins())
         return new Greeting("Hello, " + message.getName() + "!")
         //return new Greeting("Logins: " + ws.logins())
     }

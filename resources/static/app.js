@@ -22,9 +22,7 @@ function connect() {
             showGreeting(JSON.parse(greeting.body).content);
         });
         stompClient.subscribe('/topic/logins', function (logins) {
-            //showGreeting(JSON.parse(greeting.body).content);
-            //alert(logins)
-            showLogins(logins.body);
+            showLogins(JSON.parse(logins.body));
         });
     });
 }
@@ -42,11 +40,13 @@ function sendName() {
 }
 
 function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+        $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
-function showLogins(message) {
-    $("#logins").html("<tr><td>" + message + "</td></tr>");
-    //alert(message);
+function showLogins(messages) {
+    $("#logins").html("");
+    for(var i=0; i<messages.length; i++) {
+        $("#logins").append("<tr><td>" + messages[i].nick + "</td></tr>");
+    }
 }
 
 $(function () {
