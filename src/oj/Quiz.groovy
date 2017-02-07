@@ -7,4 +7,6 @@ class Quiz {
     Integer point1
     Integer point2
     Date time
+    String host1
+    String host2
 }

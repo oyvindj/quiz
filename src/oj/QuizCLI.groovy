@@ -38,7 +38,13 @@ class QuizCLI {
     void runCommand(String cmd, String arg, Scanner scanner) {
         switch(cmd) {
             case "login":
-                wsClient.login(arg)
+                def success = wsClient.login(arg)
+                if(success) {
+                    println "Successfully logged in as " + arg
+                } else {
+                    println "Login Failed!!!, Please try again."
+                }
+                break
             case "test":
                 def qs = questionDB.findAll()
                 def index = getRandom(qs.size())
